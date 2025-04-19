@@ -2061,6 +2061,12 @@ h1 {
 }
 
 @media (max-width: 480px) {
+
+  .header{
+    display: flex;
+    justify-content: start;
+  }
+
   .footer-container {
     padding: 20px 15px; /* Further reduce padding for very small screens */
   }
