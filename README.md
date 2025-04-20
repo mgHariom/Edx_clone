@@ -15,3 +15,5 @@ We've added an exciting new upgrade to the landing page chatbot:
 > 💡 **Interest Finder + Personalized Recommendations**
 
 When the chatbot is opened, it **not only assists with navigating the platform**, but also **provides the link to a test to find out the user’s interests** and **recommends relevant content** to explore further. This helps users dive into topics they actually care about and learn more efficiently.
+
+NOTE: The feature is just a visualisation of the idea. The backend is not connected and the contents of the page are not dynamic.
