@@ -2388,7 +2388,7 @@ h1 {
   flex-direction: column;
 }
 
-.interest-section{
+.interest-section {
   background-color: #f7f7f7;
 }
 
@@ -2469,4 +2469,22 @@ h1 {
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.chatbot-text {
+  background-color: #39b096;
+  color: white;
+  width: 300px; /* Adjust width dynamically based on content */
+  max-width: 500px; /* Limit the maximum width */
+  padding: 5px 10px; /* Add padding for better spacing */
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500; /* Make the text slightly bold */
+  border-radius: 8px; /* Add rounded corners */
+  margin-bottom: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  position: absolute; /* Ensure the text stays above the chatbot */
+  bottom: 50px; /* Position it above the chatbot icon */
+  right: 10px; /* Align it with the chatbot icon */
+  z-index: 1001; /* Ensure it appears above other elements */
 }

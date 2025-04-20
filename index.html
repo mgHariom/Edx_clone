@@ -847,6 +847,8 @@
     <section class="chatbot-section">
     <!-- Chatbot Component -->
     <div class="chatbot-container">
+        <!-- Add text above the chatbot icon -->
+        <div class="chatbot-text">Click to chat with EdX Assistant</div>
         <div class="chatbot-icon" id="chatbotIcon">
             <div class="bot-cap"></div>
             <div class="eyes-container">
@@ -912,8 +914,9 @@
                 <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
                 <button class="send-button" id="sendMessage">➤</button>
             </div>
+        </div>
     </div>
-    </section>
+</section>
 
         
 
@@ -1091,6 +1094,7 @@
             const popupContainer = document.getElementById('popupContainer');
             const closePopupBtn = document.getElementById('closePopupBtn');
             const submitInterestBtn = document.getElementById('submitInterestBtn');
+            const chatSection = document.getElementById('chatSection'); // Reference to the chat section
 
             // Show popup when "Find Your Interest" button is clicked
             findInterestBtn.addEventListener('click', function () {
@@ -1110,16 +1114,35 @@
 
                 if (question1 && question2 && question3) {
                     alert(`Your Interests:
-1. Course Type: ${question1.value}
-2. Learning Style: ${question2.value}
-3. Goal: ${question3.value}`);
+                        1. Course Type: ${question1.value}
+                        2. Learning Style: ${question2.value}
+                        3. Goal: ${question3.value}`);
                     popupContainer.style.display = 'none'; // Hide popup after submission
+                    chatSection.style.display = 'none'; // Close the chat messaging box
                 } else {
                     alert('Please answer all the questions before submitting.');
                 }
             });
         });
-    </script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatbotIcon = document.getElementById('chatbotIcon');
+            const chatSection = document.getElementById('chatSection');
+            const chatbotText = document.querySelector('.chatbot-text');
+            const closeChat = document.getElementById('closeChat');
+
+            // Show the chatbot and hide the text when the chatbot icon is clicked
+            chatbotIcon.addEventListener('click', function () {
+                chatSection.style.display = 'flex'; // Show the chatbot
+                chatbotText.style.display = 'none'; // Hide the chatbot text
+            });
+
+            // Hide the chatbot and show the text when the close button is clicked
+            closeChat.addEventListener('click', function () {
+                chatSection.style.display = 'none'; // Hide the chatbot
+                chatbotText.style.display = 'block'; // Show the chatbot text
+            });
+        });
     </script>
 </body>
 </html>
