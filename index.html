@@ -22,7 +22,7 @@
                     </svg>
                 </button>
     
-                <img class="edx-logo" src="assets/logo.png" alt="edX Logo" width="100" height="30">
+                <img class="edx-logo" src="assets/logo.svg" alt="edX Logo" width="100" height="30">
 
                 <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#00262b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -30,7 +30,7 @@
                 </svg>
             </div>
             
-            <img class="edx-logo" src="assets/logo.png" alt="edX Logo" width="100" height="30">
+            <img class="edx-logo" src="assets/logo.svg" alt="edX Logo" width="100" height="30">
 
             <div class="learn-dropdown" onclick="toggleMenu()">
                 Learn
@@ -151,11 +151,22 @@
         <div class="container">
             <h1>Trending on edX</h1>
             
-            <div class="tabs">
-                <div class="tab active">Executive Education</div>
-                <div class="tab">Certificates</div>
-                <div class="tab">Master's Degrees</div>
-                <div class="tab">Bachelor's Degrees</div>
+            <div class="tabs-container">
+                <!-- Dropdown for mobile -->
+                <select class="tabs-dropdown" aria-label="Select a tab">
+                    <option value="executive-education" selected>Executive Education</option>
+                    <option value="certificates">Certificates</option>
+                    <option value="masters-degrees">Master's Degrees</option>
+                    <option value="bachelors-degrees">Bachelor's Degrees</option>
+                </select>
+
+                <!-- Original tabs for larger screens -->
+                <div class="tabs">
+                    <div class="tab active" data-value="executive-education">Executive Education</div>
+                    <div class="tab" data-value="certificates">Certificates</div>
+                    <div class="tab" data-value="masters-degrees">Master's Degrees</div>
+                    <div class="tab" data-value="bachelors-degrees">Bachelor's Degrees</div>
+                </div>
             </div>
             
             <div class="filters-container">
@@ -832,6 +843,78 @@
                 </div>
             </div>
     </section>
+
+    <section class="chatbot-section">
+    <!-- Chatbot Component -->
+    <div class="chatbot-container">
+        <div class="chatbot-icon" id="chatbotIcon">
+            <div class="bot-cap"></div>
+            <div class="eyes-container">
+                <div class="eye">
+                    <div class="pupil" id="leftPupil"></div>
+                </div>
+                <div class="eye">
+                    <div class="pupil" id="rightPupil"></div>
+                </div>
+            </div>
+            <div class="bot-mouth">
+                <div class="bot-tooth"></div>
+                <div class="bot-tooth"></div>
+                <div class="bot-tooth"></div>
+            </div>
+        </div>
+        
+        <div class="chat-section" id="chatSection">
+            <div class="chat-header">
+                <div>EdX Assistant</div>
+                <div class="close-chat" id="closeChat">×</div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    Before we get started; just a reminder that this chat is AI generated, mistakes are possible. By using it you agree that edX may create a record of this chat. Your personal data will be used as described in <span> our privacy policy </span>.
+                </div>
+            </div>
+
+            <!-- New Button and MCQ Section -->
+            <div class="interest-section">
+                <button class="find-interest-btn" id="findInterestBtn">Find Your Interest</button>
+                <div class="popup-container" id="popupContainer" style="display: none;">
+                    <div class="popup-content">
+                        <button class="close-popup-btn" id="closePopupBtn">×</button>
+                        <h3>Answer the following questions:</h3>
+                        <div class="mcq-question">
+                            <p>1. What type of courses are you most interested in?</p>
+                            <label><input type="radio" name="question1" value="Technology"> Technology</label><br>
+                            <label><input type="radio" name="question1" value="Business"> Business</label><br>
+                            <label><input type="radio" name="question1" value="Arts"> Arts</label><br>
+                            <label><input type="radio" name="question1" value="Science"> Science</label>
+                        </div>
+                        <div class="mcq-question">
+                            <p>2. What is your preferred learning style?</p>
+                            <label><input type="radio" name="question2" value="Hands-on"> Hands-on</label><br>
+                            <label><input type="radio" name="question2" value="Theoretical"> Theoretical</label><br>
+                            <label><input type="radio" name="question2" value="Visual"> Visual</label><br>
+                            <label><input type="radio" name="question2" value="Interactive"> Interactive</label>
+                        </div>
+                        <div class="mcq-question">
+                            <p>3. What is your primary goal for learning?</p>
+                            <label><input type="radio" name="question3" value="Career Advancement"> Career Advancement</label><br>
+                            <label><input type="radio" name="question3" value="Personal Growth"> Personal Growth</label><br>
+                            <label><input type="radio" name="question3" value="Hobby"> Hobby</label><br>
+                            <label><input type="radio" name="question3" value="Skill Development"> Skill Development</label>
+                        </div>
+                        <button class="submit-interest-btn" id="submitInterestBtn">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="send-button" id="sendMessage">➤</button>
+            </div>
+    </div>
+    </section>
+
         
 
 
@@ -894,6 +977,149 @@
             const menu = document.getElementById("learnMenu");
             menu.style.display = menu.style.display === "flex" ? "none" : "flex";
         }
+
+         // Chatbot eyes follow cursor
+         document.addEventListener('mousemove', (e) => {
+            const leftPupil = document.getElementById('leftPupil');
+            const rightPupil = document.getElementById('rightPupil');
+            
+            // Get eyes position
+            const leftEye = leftPupil.parentElement;
+            const rightEye = rightPupil.parentElement;
+            
+            const leftEyeRect = leftEye.getBoundingClientRect();
+            const rightEyeRect = rightEye.getBoundingClientRect();
+            
+            // Calculate eye centers
+            const leftEyeCenterX = leftEyeRect.left + leftEyeRect.width / 2;
+            const leftEyeCenterY = leftEyeRect.top + leftEyeRect.height / 2;
+            
+            const rightEyeCenterX = rightEyeRect.left + rightEyeRect.width / 2;
+            const rightEyeCenterY = rightEyeRect.top + rightEyeRect.height / 2;
+            
+            // Calculate angle between mouse and eye centers
+            const leftDx = e.clientX - leftEyeCenterX;
+            const leftDy = e.clientY - leftEyeCenterY;
+            const rightDx = e.clientX - rightEyeCenterX;
+            const rightDy = e.clientY - rightEyeCenterY;
+            
+            // Calculate distance and limit movement
+            const leftDistance = Math.min(Math.sqrt(leftDx * leftDx + leftDy * leftDy), 4);
+            const rightDistance = Math.min(Math.sqrt(rightDx * rightDx + rightDy * rightDy), 4);
+            
+            // Calculate normalized direction
+            const leftAngle = Math.atan2(leftDy, leftDx);
+            const rightAngle = Math.atan2(rightDy, rightDx);
+            
+            // Move pupils
+            const leftPupilX = Math.cos(leftAngle) * leftDistance / 8;
+            const leftPupilY = Math.sin(leftAngle) * leftDistance / 8;
+            
+            const rightPupilX = Math.cos(rightAngle) * rightDistance / 8;
+            const rightPupilY = Math.sin(rightAngle) * rightDistance / 8;
+            
+            leftPupil.style.transform = `translate(calc(-60% + ${leftPupilX}px), calc(-60% + ${leftPupilY}px))`;
+            rightPupil.style.transform = `translate(calc(-60% + ${rightPupilX}px), calc(-60% + ${rightPupilY}px))`;
+        });
+        
+        // Chat functionality
+        const chatbotIcon = document.getElementById('chatbotIcon');
+        const chatSection = document.getElementById('chatSection');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        // Toggle chat section
+        chatbotIcon.addEventListener('click', () => {
+            chatSection.style.display = chatSection.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Close chat
+        closeChat.addEventListener('click', () => {
+            chatSection.style.display = 'none';
+        });
+        
+        // Send message
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMessageElement = document.createElement('div');
+                userMessageElement.classList.add('message', 'user-message');
+                userMessageElement.textContent = message;
+                chatMessages.appendChild(userMessageElement);
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate bot response after a delay
+                setTimeout(() => {
+                    const botResponses = [
+                        "Thanks for your message! How else can I assist you with your learning goals?",
+                        "I can help you find the right course for your interests. What topics are you interested in?",
+                        "Have you checked out our latest certificate programs?",
+                        "Is there a specific subject or degree you're looking to learn more about?"
+                    ];
+                    
+                    const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                    
+                    const botMessageElement = document.createElement('div');
+                    botMessageElement.classList.add('message', 'bot-message');
+                    botMessageElement.textContent = randomResponse;
+                    chatMessages.appendChild(botMessageElement);
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 800);
+            }
+        }
+        
+        sendButton.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const findInterestBtn = document.getElementById('findInterestBtn');
+            const popupContainer = document.getElementById('popupContainer');
+            const closePopupBtn = document.getElementById('closePopupBtn');
+            const submitInterestBtn = document.getElementById('submitInterestBtn');
+
+            // Show popup when "Find Your Interest" button is clicked
+            findInterestBtn.addEventListener('click', function () {
+                popupContainer.style.display = 'flex';
+            });
+
+            // Close popup when the close button is clicked
+            closePopupBtn.addEventListener('click', function () {
+                popupContainer.style.display = 'none';
+            });
+
+            // Handle MCQ submission
+            submitInterestBtn.addEventListener('click', function () {
+                const question1 = document.querySelector('input[name="question1"]:checked');
+                const question2 = document.querySelector('input[name="question2"]:checked');
+                const question3 = document.querySelector('input[name="question3"]:checked');
+
+                if (question1 && question2 && question3) {
+                    alert(`Your Interests:
+1. Course Type: ${question1.value}
+2. Learning Style: ${question2.value}
+3. Goal: ${question3.value}`);
+                    popupContainer.style.display = 'none'; // Hide popup after submission
+                } else {
+                    alert('Please answer all the questions before submitting.');
+                }
+            });
+        });
+    </script>
     </script>
 </body>
 </html>

@@ -343,7 +343,7 @@ h1.hero-title {
     background-color: #fff;
   }
 
-  .mobile-header{
+  .mobile-header {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -387,43 +387,42 @@ h1.hero-title {
   }
 }
 
-  /* Show mobile menu when active */
-  body.mobile-menu-open .search-container,
-  body.mobile-menu-open .sign-in,
-  body.mobile-menu-open .register-btn,
-  body.mobile-menu-open .business-link {
-    display: block;
-  }
+/* Show mobile menu when active */
+body.mobile-menu-open .search-container,
+body.mobile-menu-open .sign-in,
+body.mobile-menu-open .register-btn,
+body.mobile-menu-open .business-link {
+  display: block;
+}
 
-  body.mobile-menu-open .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+body.mobile-menu-open .header {
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-  body.mobile-menu-open .header-left {
-    margin-bottom: 16px;
-  }
+body.mobile-menu-open .header-left {
+  margin-bottom: 16px;
+}
 
-  body.mobile-menu-open .header-right {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
+body.mobile-menu-open .header-right {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
 
-  body.mobile-menu-open .search-container {
-    margin: 16px 0;
-    max-width: 100%;
-  }
+body.mobile-menu-open .search-container {
+  margin: 16px 0;
+  max-width: 100%;
+}
 
-  body.mobile-menu-open .business-link,
-  body.mobile-menu-open .sign-in,
-  body.mobile-menu-open .register-btn {
-    margin: 8px 0;
-  }
+body.mobile-menu-open .business-link,
+body.mobile-menu-open .sign-in,
+body.mobile-menu-open .register-btn {
+  margin: 8px 0;
+}
 
 @media (max-width: 576px) {
-
-  .hero{
+  .hero {
     background-image: linear-gradient(to bottom, #00462a, #00262b);
     min-height: 550px;
   }
@@ -628,24 +627,38 @@ h1 {
   padding-left: 10px;
 }
 
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .tabs {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  gap: 10px;
 }
 
 .tab {
-  padding: 15px 30px;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
-  color: #505050;
   text-align: center;
-  flex: 1;
-  min-width: 150px;
 }
 
 .tab.active {
-  background-color: #00462a;
+  background-color: #d23228;
+  color: white;
+}
+
+/* Styles for dropdown on mobile */
+.tabs-dropdown {
+  display: none;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #0e3739;
   color: white;
 }
 
@@ -715,6 +728,52 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+}
+
+/* Default styles for the courses container */
+.courses {
+  display: flex;
+  flex-wrap: wrap; /* Default behavior for larger screens */
+  gap: 20px;
+}
+
+/* Course card styles */
+.course-card {
+  flex: 1 1 calc(25% - 20px); /* Default: 4 cards per row with spacing */
+  max-width: calc(25% - 20px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* Horizontal scrolling for mobile */
+@media (max-width: 768px) {
+  .courses {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 10px; /* Reduce gap for smaller screens */
+    padding: 10px; /* Add padding for better spacing */
+  }
+
+  .course-card {
+    flex: 0 0 95%; /* Each card takes 80% of the container width */
+    max-width: 90%; /* Prevent cards from exceeding 80% width */
+  }
+
+  .courses::-webkit-scrollbar {
+    height: 4px; /* Customize scrollbar height */
+  }
+
+  .courses::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Customize scrollbar thumb color */
+    border-radius: 4px; /* Add rounded corners to scrollbar thumb */
+  }
+
+  .courses::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Customize scrollbar track color */
+  }
 }
 
 .course-card {
@@ -817,6 +876,14 @@ h1 {
     padding: 12px 20px;
   }
 
+  .tabs {
+    display: none;
+  }
+
+  .tabs-dropdown {
+    display: block;
+  }
+
   .course-title {
     font-size: 16px;
   }
@@ -827,6 +894,10 @@ h1 {
 
   .filters {
     padding: 10px 5px;
+  }
+
+  .more-course-link {
+    display: none; /* Hide the "More Courses" link on mobile */
   }
 }
 
@@ -877,7 +948,7 @@ h1 {
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 30px;
-  color: #f4aebe;
+  color: #fff;
   font-style: italic;
 }
 
@@ -1006,27 +1077,49 @@ h1 {
 
 .category-tabs {
   display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  position: relative;
+  scrollbar-width: none; /* Firefox */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping of child elements */
+  scrollbar-width: thin; /* For modern browsers, make the scrollbar thinner */
+}
+
+.category-tabs a {
+  width: fit-content;
+}
+
+.category-tabs::-webkit-scrollbar {
+  height: 6px; /* Customize scrollbar height */
+}
+
+.category-tabs::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Customize scrollbar thumb color */
+  border-radius: 4px; /* Add rounded corners to scrollbar thumb */
+}
+
+.category-tabs::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Customize scrollbar track color */
 }
 
 .tab {
-  padding: 8px 16px;
+  padding: 8px 15px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 14px;
-  cursor: pointer;
   background-color: white;
-  color: #333;
-  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 .tab.active {
-  border-color: #0c3b3d;
-  background-color: #f0f7f7;
-  color: #0c3b3d;
-  font-weight: 500;
+  background-color: #0e3739;
+  color: white;
 }
 
 .courses-grid {
@@ -1069,22 +1162,6 @@ h1 {
 .oxford-image {
   background-image: url("/api/placeholder/400/320");
   background-color: #002147;
-}
-
-.logo {
-  position: absolute;
-  background-color: white;
-  border-radius: 4px;
-  padding: 8px;
-  top: 12px;
-  left: 12px;
-  height: 40px;
-  width: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
 }
 
 .course-content {
@@ -1181,7 +1258,7 @@ h1 {
 }
 
 .topic-card {
-  background-color: #f9f9f7;
+  background-color: #f9f8f6;
   border-radius: 12px;
   padding: 30px 20px;
   display: flex;
@@ -1265,10 +1342,12 @@ h1 {
   }
 
   .topic-card {
-    height: auto; /* Allow height to adjust based on content */
+    height: 100px; /* Allow height to adjust based on content */
     width: 100%; /* Use full width */
     max-width: 90%; /* Add some margin for better alignment */
     margin: 0 auto; /* Center the cards */
+    display: flex; /* Ensure flex layout for content alignment */
+    flex-direction: row; /* Stack content vertically */
   }
 
   .popular-topics {
@@ -1841,15 +1920,24 @@ h1 {
 
 .header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
   background-color: #00262b;
 }
 
 .logo {
-  width: 120px;
-  height: 40px;
+  border-radius: 4px;
+  padding: 8px;
+  top: 12px;
+  left: 12px;
+  height: 80px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .social-icons {
@@ -2063,10 +2151,26 @@ h1 {
 }
 
 @media (max-width: 480px) {
+  .logo {
+    border-radius: 4px;
+    padding: 8px;
+    top: 12px;
+    left: 12px;
+    height: 70px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+  }
 
-  .header{
+  .header {
     display: flex;
     justify-content: start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .footer-container {
@@ -2085,4 +2189,284 @@ h1 {
     flex-direction: column; /* Stack app links vertically */
     gap: 10px; /* Add spacing between links */
   }
+}
+
+/* Chatbot styles */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chatbot-icon {
+  width: 60px;
+  height: 50px;
+  background-color: #42c3a7;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.05);
+}
+
+.bot-cap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background-color: #000;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+}
+
+.eyes-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.pupil {
+  width: 12px;
+  height: 12px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bot-mouth {
+  position: absolute;
+  bottom: 14px;
+  left: 15px;
+  gap: 10px;
+  /* transform: translateX(-50%); */
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bot-tooth {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  position: absolute;
+  top: -3px;
+  border-radius: 50%;
+}
+
+.bot-tooth:nth-child(1) {
+  left: 8px;
+}
+
+.bot-tooth:nth-child(2) {
+  left: 18px;
+}
+
+.chat-section {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 320px;
+  height: 400px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #42c3a7;
+  color: white;
+  padding: 12px 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-chat {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background-color: #f7f7f7;
+}
+
+.message {
+  margin-bottom: 12px;
+  max-width: 80%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bot-message {
+  background-color: #e6e6e6;
+  color: #333;
+  border-top-left-radius: 4px;
+  align-self: flex-start;
+}
+
+.user-message {
+  background-color: #42c3a7;
+  color: white;
+  border-top-right-radius: 4px;
+  margin-left: auto;
+  text-align: right;
+}
+
+.chat-input-container {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #eaeaea;
+  background-color: white;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+}
+
+.send-button {
+  background-color: #42c3a7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  margin-left: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button:hover {
+  background-color: #39b096;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+}
+
+.interest-section{
+  background-color: #f7f7f7;
+}
+
+.find-interest-btn {
+  background-color: #42c3a7;
+  color: #f7f7f7;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+.find-interest-btn:hover {
+  background-color: #fff;
+  color: #0e3739;
+}
+
+.mcq-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.mcq-question {
+  margin-bottom: 15px;
+}
+
+.submit-interest-btn {
+  background-color: #42c3a7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-interest-btn:hover {
+  background-color: #218838;
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
