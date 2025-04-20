@@ -4,7 +4,7 @@
 
 Welcome to our hackathon project! This project is built with the mission of making learning and productivity more engaging and intelligent through AI-driven assistance.
 
-🔗 **Live Website:** [https://your-website-link.com](edx-clone.vercel.app)
+🔗 **Live Website:** [https://edx-clone.vercel.app]
 
 ---
 
